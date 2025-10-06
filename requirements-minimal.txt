@@ -1,0 +1,19 @@
+# Hlavní závislosti aplikace
+
+# Web framework
+streamlit==1.50.0
+
+# Google API
+google-api-python-client==2.184.0
+
+# Data processing
+pandas==2.3.2
+beautifulsoup4==4.14.0
+
+# Testing
+pytest==8.4.2
+pytest-cov==7.0.0
+
+# Optional: Selenium pro fallback (pokud by byl potřeba)
+# selenium==4.35.0
+# webdriver-manager==4.0.2
