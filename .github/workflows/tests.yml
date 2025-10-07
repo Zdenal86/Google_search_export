@@ -31,11 +31,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-minimal.txt
 
-      - name: Optionally install dev/test dependencies (cached)
-        if: github.event_name != 'pull_request'
+      - name: Install dev/test dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements-dev.txt || true
+          pip install -r requirements-dev.txt
 
       - name: Run tests with pytest
         env:

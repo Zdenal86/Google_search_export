@@ -23,7 +23,8 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements-minimal.txt
+          pip install -r requirements-dev.txt
 
       - name: Run quick tests
         env:
@@ -37,4 +38,4 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           GOOGLE_CX: ${{ secrets.GOOGLE_CX }}
         run: |
-          pytest --cov=results_parser --cov=search_service --cov-report=term-missing --cov-fail-under=70
+          pytest --cov=. --cov-report=term-missing --cov-fail-under=85
