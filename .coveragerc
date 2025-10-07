@@ -1,0 +1,24 @@
+[run]
+source = .
+omit =
+    # Streamlit UI modules (hard to test, low value)
+    main.py
+    ui.py
+    # Test files themselves
+    test_*.py
+    # Python cache and virtual environment
+    */__pycache__/*
+    __pycache__/*
+    .venv/*
+    */.venv/*
+
+[report]
+# Show missing lines in coverage report
+show_missing = True
+# Skip covered files for cleaner output
+skip_covered = False
+# Precision for coverage percentage
+precision = 2
+
+[html]
+directory = htmlcov

@@ -38,20 +38,17 @@ jobs:
       - name: Lint with flake8
         run: |
           # Stop the build if there are Python syntax errors or undefined names
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics --exclude=.venv,venv,htmlcov || true
           # Exit-zero treats all errors as warnings
-          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-        continue-on-error: true
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --exclude=.venv,venv,htmlcov || true
 
       - name: Lint with pylint
         run: |
-          pylint **/*.py --exit-zero
-        continue-on-error: true
+          pylint *.py --exit-zero --ignore=.venv,venv,htmlcov || true
 
       - name: Type check with mypy
         run: |
-          mypy . --ignore-missing-imports --no-strict-optional
-        continue-on-error: true
+          mypy . --ignore-missing-imports --no-strict-optional --exclude '\.venv|venv|htmlcov' || true
 
   security:
     runs-on: ubuntu-latest
@@ -72,13 +69,11 @@ jobs:
 
       - name: Run Bandit security check
         run: |
-          bandit -r . -f json -o bandit-report.json
-        continue-on-error: true
+          bandit -r . -f json -o bandit-report.json --exclude .venv,venv,htmlcov || true
 
       - name: Check dependencies for vulnerabilities
         run: |
-          safety check --json
-        continue-on-error: true
+          safety check --json || true
 
       - name: Upload security reports
         uses: actions/upload-artifact@v4
