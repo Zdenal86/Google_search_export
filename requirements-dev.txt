@@ -7,4 +7,4 @@ isort>=5.12
 flake8>=6.0
 mypy>=1.8
 bandit>=1.8
-codecov>=2.2
+# Note: codecov package is deprecated, GitHub Action codecov/codecov-action handles uploads
