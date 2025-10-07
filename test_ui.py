@@ -3,6 +3,7 @@ Unit testy pro UI komponenty
 """
 
 import pytest
+
 from ui import SearchUI
 
 
@@ -55,29 +56,29 @@ class TestSearchUIHelpers:
         """Test že všechny message metody existují"""
         ui = SearchUI()
 
-        assert hasattr(ui, 'show_success')
-        assert hasattr(ui, 'show_error')
-        assert hasattr(ui, 'show_info')
-        assert hasattr(ui, 'show_loading')
+        assert hasattr(ui, "show_success")
+        assert hasattr(ui, "show_error")
+        assert hasattr(ui, "show_info")
+        assert hasattr(ui, "show_loading")
 
     def test_render_methods_exist(self):
         """Test že všechny render metody existují"""
         ui = SearchUI()
 
-        assert hasattr(ui, 'render_header')
-        assert hasattr(ui, 'render_search_input')
-        assert hasattr(ui, 'render_search_button')
-        assert hasattr(ui, 'render_results')
-        assert hasattr(ui, 'render_export_buttons')
-        assert hasattr(ui, 'render_locale_settings')
+        assert hasattr(ui, "render_header")
+        assert hasattr(ui, "render_search_input")
+        assert hasattr(ui, "render_search_button")
+        assert hasattr(ui, "render_results")
+        assert hasattr(ui, "render_export_buttons")
+        assert hasattr(ui, "render_locale_settings")
 
     def test_export_methods_exist(self):
         """Test že všechny export metody existují"""
         ui = SearchUI()
 
-        assert hasattr(ui, '_render_json_export')
-        assert hasattr(ui, '_render_csv_export')
-        assert hasattr(ui, '_render_txt_export')
+        assert hasattr(ui, "_render_json_export")
+        assert hasattr(ui, "_render_csv_export")
+        assert hasattr(ui, "_render_txt_export")
 
 
 class TestSearchUIIntegration:
@@ -87,10 +88,10 @@ class TestSearchUIIntegration:
         """Test že UI importuje správné moduly"""
         import ui
 
-        assert hasattr(ui, 'st')  # Streamlit
-        assert hasattr(ui, 'json')
-        assert hasattr(ui, 'datetime')
-        assert hasattr(ui, 'ResultsParser')
+        assert hasattr(ui, "st")  # Streamlit
+        assert hasattr(ui, "json")
+        assert hasattr(ui, "datetime")
+        assert hasattr(ui, "ResultsParser")
 
     def test_searchui_class_exists(self):
         """Test že SearchUI třída existuje"""

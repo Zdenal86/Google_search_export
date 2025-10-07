@@ -3,10 +3,12 @@ Jednoduchá vyhledávací aplikace
 Objektový přístup - Streamlit + Requests + BeautifulSoup
 """
 
-import streamlit as st
-from ui import SearchUI
-from search_service import SearchService
 import json
+
+import streamlit as st
+
+from search_service import SearchService
+from ui import SearchUI
 
 
 def main():
@@ -30,13 +32,12 @@ def main():
         if query and query.strip():
             with ui.show_loading():
                 # Vyhledání s lokalizací
-                results_dict = search_service.google_search(
-                    query,
-                    language=language
-                )
+                results_dict = search_service.google_search(query, language=language)
 
                 # Uložení do session state
-                st.session_state.results_json = json.dumps(results_dict, ensure_ascii=False, indent=2)
+                st.session_state.results_json = json.dumps(
+                    results_dict, ensure_ascii=False, indent=2
+                )
                 st.session_state.query = query
 
             # Zobrazení výsledků
@@ -47,12 +48,9 @@ def main():
             ui.show_error("⚠️ Zadejte vyhledávací dotaz!")
 
     # Export tlačítka (pokud existují výsledky)
-    if hasattr(st.session_state, 'results_json') and st.session_state.results_json:
+    if hasattr(st.session_state, "results_json") and st.session_state.results_json:
         ui.render_export_buttons(st.session_state.results_json, st.session_state.query)
-
 
 
 if __name__ == "__main__":
     main()
-
-

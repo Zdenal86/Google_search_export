@@ -1,9 +1,11 @@
 """
 Vyhledávací služba
 """
-from googleapiclient.discovery import build
+
 import json
 import os
+
+from googleapiclient.discovery import build
 
 
 class SearchService:
@@ -11,14 +13,14 @@ class SearchService:
 
     # Mapování jazyka na výchozí zemi pro geolokalizaci
     LANGUAGE_COUNTRY_MAP = {
-        'cs': 'CZ',  # Čeština -> Česká republika
-        'sk': 'SK',  # Slovenština -> Slovensko
-        'pl': 'PL',  # Polština -> Polsko
-        'de': 'DE',  # Němčina -> Německo
-        'fr': 'FR',  # Francouzština -> Francie
-        'en': 'US',  # Angličtina -> USA
-        'es': 'ES',  # Španělština -> Španělsko
-        'it': 'IT',  # Italština -> Itálie
+        "cs": "CZ",  # Čeština -> Česká republika
+        "sk": "SK",  # Slovenština -> Slovensko
+        "pl": "PL",  # Polština -> Polsko
+        "de": "DE",  # Němčina -> Německo
+        "fr": "FR",  # Francouzština -> Francie
+        "en": "US",  # Angličtina -> USA
+        "es": "ES",  # Španělština -> Španělsko
+        "it": "IT",  # Italština -> Itálie
     }
 
     def __init__(self):
@@ -34,8 +36,7 @@ class SearchService:
         self.cx = os.getenv("GOOGLE_CX")
         self.service = build("customsearch", "v1", developerKey=self.api_key)
 
-
-    def google_search(self, query, num=10, language='cs'):
+    def google_search(self, query, num=10, language="cs"):
         """
         Provede vyhledávání pomocí Google Custom Search API
 
@@ -49,15 +50,18 @@ class SearchService:
             dict: Google API odpověď
         """
         # Automaticky určí zemi podle zvoleného jazyka
-        country = self.LANGUAGE_COUNTRY_MAP.get(language, 'US')
+        country = self.LANGUAGE_COUNTRY_MAP.get(language, "US")
 
-        res = self.service.cse().list(
-            q=query,
-            cx=self.cx,
-            num=num,
-            lr=f'lang_{language}',  # Language restrict - omezí výsledky na daný jazyk
-            gl=country,              # Geolocation - automaticky podle jazyka
-            hl=language              # Host language - jazyk rozhraní
-        ).execute()
+        res = (
+            self.service.cse()
+            .list(
+                q=query,
+                cx=self.cx,
+                num=num,
+                lr=f"lang_{language}",  # Language restrict - omezí výsledky na daný jazyk
+                gl=country,  # Geolocation - automaticky podle jazyka
+                hl=language,  # Host language - jazyk rozhraní
+            )
+            .execute()
+        )
         return res
-

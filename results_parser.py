@@ -24,16 +24,18 @@ class ResultsParser:
             results = json.loads(results)
 
         # Parsování Google API struktury
-        if 'items' in results:
-            items = results['items']
+        if "items" in results:
+            items = results["items"]
             data = []
             for i, item in enumerate(items, 1):
-                data.append({
-                    'rank': i,
-                    'title': item.get('title', ''),
-                    'link': item.get('link', ''),
-                    'snippet': item.get('snippet', '')
-                })
+                data.append(
+                    {
+                        "rank": i,
+                        "title": item.get("title", ""),
+                        "link": item.get("link", ""),
+                        "snippet": item.get("snippet", ""),
+                    }
+                )
             return data
 
         # Fallback - data už jsou v našem formátu
@@ -72,9 +74,10 @@ class ResultsParser:
         """
         try:
             import pandas as pd
+
             parsed = ResultsParser.parse_google_api_response(results)
             df = pd.DataFrame(parsed)
-            return df.to_csv(index=False, encoding='utf-8')
+            return df.to_csv(index=False, encoding="utf-8")
         except ImportError:
             raise ImportError("Pandas není nainstalován")
 

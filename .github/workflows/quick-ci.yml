@@ -26,9 +26,15 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run quick tests
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_CX: ${{ secrets.GOOGLE_CX }}
         run: |
           pytest -v --tb=short -x
 
       - name: Check test coverage
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_CX: ${{ secrets.GOOGLE_CX }}
         run: |
           pytest --cov=results_parser --cov=search_service --cov-report=term-missing --cov-fail-under=70

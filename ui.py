@@ -2,9 +2,11 @@
 UI komponenta pro vyhledávací aplikaci
 """
 
-import streamlit as st
 import json
 from datetime import datetime
+
+import streamlit as st
+
 from results_parser import ResultsParser
 
 
@@ -17,11 +19,7 @@ class SearchUI:
 
     def setup_page(self):
         """Nastavení stránky"""
-        st.set_page_config(
-            page_title="Vyhledávač",
-            page_icon="🔍",
-            layout="centered"
-        )
+        st.set_page_config(page_title="Vyhledávač", page_icon="🔍", layout="centered")
 
     def render_header(self):
         """Vykreslení hlavičky"""
@@ -30,10 +28,7 @@ class SearchUI:
 
     def render_search_input(self):
         """Vykreslení vyhledávacího inputu"""
-        query = st.text_input(
-            "Zadejte vyhledávací dotaz:",
-            placeholder="Např: python programming"
-        )
+        query = st.text_input("Zadejte vyhledávací dotaz:", placeholder="Např: python programming")
         return query
 
     def render_locale_settings(self):
@@ -41,21 +36,21 @@ class SearchUI:
         with st.expander("⚙️ Nastavení jazyka", expanded=False):
             # Mapování jazyků pro lepší UX
             language_options = {
-                'Čeština (cs)': 'cs',
-                'English (en)': 'en',
-                'Slovenčina (sk)': 'sk',
-                'Polski (pl)': 'pl',
-                'Deutsch (de)': 'de',
-                'Français (fr)': 'fr',
-                'Español (es)': 'es',
-                'Italiano (it)': 'it',
+                "Čeština (cs)": "cs",
+                "English (en)": "en",
+                "Slovenčina (sk)": "sk",
+                "Polski (pl)": "pl",
+                "Deutsch (de)": "de",
+                "Français (fr)": "fr",
+                "Español (es)": "es",
+                "Italiano (it)": "it",
             }
 
             selected_display = st.selectbox(
                 "Jazyk výsledků:",
                 options=list(language_options.keys()),
                 index=0,
-                help="Vyhledávání omezí na zvolený jazyk. Země se určí automaticky."
+                help="Vyhledávání omezí na zvolený jazyk. Země se určí automaticky.",
             )
 
             language = language_options[selected_display]
@@ -97,8 +92,12 @@ class SearchUI:
 
             # Zobraz výsledky
             for result in results:
-                with st.expander(f"**{result.get('rank', '?')}. {result.get('title', 'Bez názvu')}**"):
-                    st.markdown(f"**🔗 URL:** [{result.get('link', 'N/A')}]({result.get('link', '#')})")
+                with st.expander(
+                    f"**{result.get('rank', '?')}. {result.get('title', 'Bez názvu')}**"
+                ):
+                    st.markdown(
+                        f"**🔗 URL:** [{result.get('link', 'N/A')}]({result.get('link', '#')})"
+                    )
                     st.markdown(f"**📄 Popis:** {result.get('snippet', 'Bez popisu')}")
 
         except Exception as e:
@@ -109,7 +108,7 @@ class SearchUI:
         st.divider()
         st.subheader("📥 Export výsledků")
 
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"vysledky_{query.replace(' ', '_')}_{timestamp}"
 
         col1, col2, col3 = st.columns(3)
@@ -133,7 +132,7 @@ class SearchUI:
                 data=json_string,
                 file_name=f"{filename}.json",
                 mime="application/json",
-                use_container_width=True
+                use_container_width=True,
             )
         except Exception as e:
             st.button("📥 JSON", disabled=True, help=f"Chyba: {e}", use_container_width=True)
@@ -148,10 +147,12 @@ class SearchUI:
                 data=csv_data,
                 file_name=f"{filename}.csv",
                 mime="text/csv",
-                use_container_width=True
+                use_container_width=True,
             )
         except ImportError:
-            st.button("📊 CSV", disabled=True, help="Pandas není nainstalován", use_container_width=True)
+            st.button(
+                "📊 CSV", disabled=True, help="Pandas není nainstalován", use_container_width=True
+            )
         except Exception as e:
             st.button("📊 CSV", disabled=True, help=f"Chyba: {e}", use_container_width=True)
 
@@ -162,12 +163,10 @@ class SearchUI:
 
             st.download_button(
                 label="📄 TXT",
-                data=txt_content.encode('utf-8'),
+                data=txt_content.encode("utf-8"),
                 file_name=f"{filename}.txt",
                 mime="text/plain",
-                use_container_width=True
+                use_container_width=True,
             )
         except Exception as e:
             st.button("📄 TXT", disabled=True, help=f"Chyba: {e}", use_container_width=True)
-
-
