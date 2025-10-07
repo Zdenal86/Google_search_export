@@ -1,8 +1,99 @@
 # 🔍 Vyhledávací aplikace
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://search-export.streamlit.app/)
-[![Tests](https://github.com/Zdenal86/Google_search_export/actions/workflows/tests.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/tests.yml)
-[![Quick CI](https://github.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml)
+[![Tests](https://github.com/Zdenal86/Google_search_export/actions/workflows/tests.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/tests.## 🐛 Troubleshooting & Error Handling
+
+### Chybějící API credentials
+
+**Problém:**
+
+```
+AttributeError: 'NoneType' object has no attribute 'cse'
+```
+
+**Řešení:** API klíče nejsou nastavené. Zkontroluj:
+
+```powershell
+# Streamlit Cloud: Settings → Secrets
+# Lokálně: .streamlit/secrets.toml nebo environment proměnné
+```
+
+### Google API Error Responses
+
+**429 Too Many Requests**
+
+```json
+{
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for quota metric 'Queries' and limit 'Queries per day'"
+  }
+}
+```
+
+**Řešení:** Překročen denní limit (100 queries/den zdarma). Počkej 24h nebo upgraduj na placenou verzi.
+
+**403 Forbidden**
+
+```json
+{
+  "error": {
+    "code": 403,
+    "message": "The request is missing a valid API key."
+  }
+}
+```
+
+**Řešení:** Neplatný nebo chybějící API klíč. Zkontroluj `GOOGLE_API_KEY` v secrets.
+
+**400 Bad Request - Invalid CX**
+
+```json
+{
+  "error": {
+    "code": 400,
+    "message": "Invalid Value"
+  }
+}
+```
+
+**Řešení:** Neplatný CX (Search Engine ID). Ověř `GOOGLE_CX` v [Programmable Search Engine](https://programmablesearchengine.google.com/).
+
+### Deployment problémy
+
+**Streamlit Cloud: App crashes on startup**
+
+1. **Zkontroluj logs:** Dashboard → Manage app → Logs
+2. **Ověř secrets formát:**
+   ```toml
+   GOOGLE_API_KEY = "hodnota"  # S uvozovkami!
+   GOOGLE_CX = "hodnota"
+   ```
+3. **Zkontroluj requirements.txt:** Všechny dependencies přítomné?
+
+**Streamlit Cloud: Slow performance**
+
+Free tier má omezené resources:
+
+- Cache API responses: `@st.cache_data(ttl=3600)`
+- Limit počet výsledků: `num=5` místo `num=10`
+
+### Import Error: No module named 'googleapiclient'
+
+```powershell
+pip install google-api-python-client
+```
+
+### Pytest nenalezen
+
+```powershell
+pip install pytest pytest-cov
+```
+
+### Coverage pod 85%
+
+Pokud přidáváš kód do `search_service.py` nebo `results_parser.py`, přidej testy!
+UI moduly (`main.py`, `ui.py`) jsou vyloučeny z coverage (`.coveragerc`).k CI](https://github.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml)
 [![Code Quality](https://github.com/Zdenal86/Google_search_export/actions/workflows/code-quality.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/code-quality.yml)
 [![codecov](https://codecov.io/gh/Zdenal86/Google_search_export/branch/main/graph/badge.svg)](https://codecov.io/gh/Zdenal86/Google_search_export)
 [![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)](https://www.python.org/downloads/)
@@ -39,12 +130,50 @@ Jednoduchá webová aplikace pro vyhledávání pomocí Google Custom Search API
 └── .gitignore                 # Git ignore pravidla
 ```
 
-## 🚀 Instalace
+## ⚡ Quick Start - Streamlit Cloud
+
+Nejrychlejší způsob, jak dostat aplikaci do provozu:
+
+### 1️⃣ Jdi na [share.streamlit.io](https://share.streamlit.io/)
+
+Přihlaš se přes GitHub
+
+### 2️⃣ Vytvoř novou app
+
+```
+Repository: Zdenal86/Google_search_export
+Branch: main
+Main file: main.py
+```
+
+### 3️⃣ Nastav Secrets (⚠️ DŮLEŽITÉ!)
+
+V "Advanced settings" → "Secrets":
+
+```toml
+GOOGLE_API_KEY = "tvůj-api-key"
+GOOGLE_CX = "tvůj-cx-id"
+```
+
+**Kde získat credentials?**
+
+- **API Key:** [Google Cloud Console](https://console.cloud.google.com/) → API & Services → Credentials → Create API Key
+- **CX ID:** [Programmable Search Engine](https://programmablesearchengine.google.com/) → Edit → Engine ID
+
+### 4️⃣ Deploy! 🚀
+
+Hotovo za ~2 minuty! Aplikace bude na `https://tvoje-app.streamlit.app`
+
+> 📖 Detailní návod: [QUICK_DEPLOY.md](QUICK_DEPLOY.md)
+
+---
+
+## 🚀 Lokální instalace
 
 ### 1. Klonování repozitáře
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Zdenal86/Google_search_export.git
 cd Google_search_export
 ```
 
@@ -58,32 +187,35 @@ python -m venv .venv
 ### 3. Instalace závislostí
 
 ```powershell
-# Minimální instalace
+# Minimální instalace (pro běh aplikace)
 pip install -r requirements-minimal.txt
 
-# Nebo kompletní instalace
+# Plná instalace (včetně dev nástrojů)
 pip install -r requirements.txt
+pip install -r requirements-dev.txt
 ```
 
-### 4. Konfigurace API credentials (volitelné)
+### 4. Konfigurace API credentials
 
-Aplikace má fallback hodnoty pro rychlý start. Pro produkci nastavte vlastní credentials:
+#### Varianta A: Streamlit Secrets (doporučeno)
 
-#### Pro lokální vývoj - vytvoř `.streamlit/secrets.toml`:
+Vytvoř `.streamlit/secrets.toml`:
 
 ```toml
-GOOGLE_API_KEY = "váš-google-api-klíč"
-GOOGLE_CX = "váš-cx-id"
+GOOGLE_API_KEY = "tvůj-google-api-klíč"
+GOOGLE_CX = "tvůj-cx-id"
 ```
 
-#### Nebo použij environment proměnné:
+#### Varianta B: Environment proměnné
 
 ```powershell
-$env:GOOGLE_API_KEY = "váš-api-klíč"
-$env:GOOGLE_CX = "váš-cx"
+$env:GOOGLE_API_KEY = "tvůj-api-klíč"
+$env:GOOGLE_CX = "tvůj-cx"
 ```
 
-> 📚 Podrobný návod na získání credentials viz [DEPLOYMENT.md](DEPLOYMENT.md)
+> 💡 **Tip:** Zkopíruj `.streamlit/secrets.toml.example` a uprav hodnoty
+>
+> 📚 Podrobný návod na získání credentials: [DEPLOYMENT.md](DEPLOYMENT.md)
 
 ## 🎮 Použití
 
@@ -319,6 +451,22 @@ Zkontrolujte:
 - Má API klíč povolený Custom Search API?
 - Máte ještě dostupnou kvótu (100 dotazů/den free)?
 
+## 🤝 Contributing
+
+Příspěvky jsou vítány! Před tím, než začneš:
+
+1. 📖 Přečti si [CONTRIBUTING.md](CONTRIBUTING.md) - guide jak přispívat
+2. 📜 Dodržuj [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) - pravidla chování
+3. 🐛 Reportuj bugy nebo navrhuj features přes [GitHub Issues](https://github.com/Zdenal86/Google_search_export/issues)
+4. 🔀 Vytvoř Pull Request s popisem změn
+
+**Quick checklist pro PR:**
+
+- [ ] Kód naformátovaný (`black .`, `isort .`)
+- [ ] Testy procházejí (`pytest`)
+- [ ] Coverage zachován/vylepšen
+- [ ] Dokumentace aktualizovaná
+
 ## 📜 Licence
 
 Tento projekt je licencován pod [MIT License](LICENSE) - viz LICENSE soubor pro detaily.
@@ -332,6 +480,7 @@ Vytvořeno s pomocí GitHub Copilot
 - [Streamlit](https://streamlit.io/) za skvělý web framework
 - [Google Custom Search API](https://developers.google.com/custom-search) za vyhledávací službu
 - [pytest](https://pytest.org/) za testovací framework
+- Všem [contributors](https://github.com/Zdenal86/Google_search_export/graphs/contributors) 🎉
 
 ---
 
