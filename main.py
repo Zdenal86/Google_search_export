@@ -22,8 +22,8 @@ def main():
     # Input pro vyhledávání
     query = ui.render_search_input()
 
-    # Nastavení lokalizace
-    language, country = ui.render_locale_settings()
+    # Nastavení jazyka (země se určí automaticky)
+    language = ui.render_locale_settings()
 
     # Tlačítko vyhledat
     if ui.render_search_button():
@@ -32,8 +32,7 @@ def main():
                 # Vyhledání s lokalizací
                 results_dict = search_service.google_search(
                     query,
-                    language=language,
-                    country=country
+                    language=language
                 )
 
                 # Uložení do session state

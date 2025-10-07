@@ -38,26 +38,29 @@ class SearchUI:
 
     def render_locale_settings(self):
         """Vykreslení nastavení lokalizace"""
-        with st.expander("⚙️ Nastavení lokalizace", expanded=False):
-            col1, col2 = st.columns(2)
+        with st.expander("⚙️ Nastavení jazyka", expanded=False):
+            # Mapování jazyků pro lepší UX
+            language_options = {
+                'Čeština (cs)': 'cs',
+                'English (en)': 'en',
+                'Slovenčina (sk)': 'sk',
+                'Polski (pl)': 'pl',
+                'Deutsch (de)': 'de',
+                'Français (fr)': 'fr',
+                'Español (es)': 'es',
+                'Italiano (it)': 'it',
+            }
 
-            with col1:
-                language = st.selectbox(
-                    "Jazyk výsledků:",
-                    options=['cs', 'en', 'sk', 'pl', 'de', 'fr'],
-                    index=0,
-                    help="Omezí výsledky na daný jazyk"
-                )
+            selected_display = st.selectbox(
+                "Jazyk výsledků:",
+                options=list(language_options.keys()),
+                index=0,
+                help="Vyhledávání omezí na zvolený jazyk. Země se určí automaticky."
+            )
 
-            with col2:
-                country = st.selectbox(
-                    "Země:",
-                    options=['CZ', 'SK', 'PL', 'US', 'DE', 'FR', 'UK'],
-                    index=0,
-                    help="Vyhledávání jako z dané země"
-                )
+            language = language_options[selected_display]
 
-            return language, country
+            return language
 
     def render_search_button(self):
         """Vykreslení tlačítka pro vyhledání"""
