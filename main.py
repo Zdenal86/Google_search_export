@@ -27,12 +27,15 @@ def main():
     # Nastavení jazyka (země se určí automaticky)
     language = ui.render_locale_settings()
 
+    # Nastavení počtu výsledků
+    results_count = ui.render_results_count()
+
     # Tlačítko vyhledat
     if ui.render_search_button():
         if query and query.strip():
             with ui.show_loading():
                 # Vyhledání s lokalizací
-                results_dict = search_service.google_search(query, language=language)
+                results_dict = search_service.google_search(query, results_count, language=language)
 
                 # Uložení do session state
                 st.session_state.results_json = json.dumps(
@@ -40,15 +43,15 @@ def main():
                 )
                 st.session_state.query = query
 
-            # Zobrazení výsledků
+            # Zobrazení úspěšné zprávy
             ui.show_success(f"✅ Vyhledávání dokončeno")
-            ui.render_results(results_dict)
 
         else:
             ui.show_error("⚠️ Zadejte vyhledávací dotaz!")
 
-    # Export tlačítka (pokud existují výsledky)
+    # Zobrazení výsledků (pokud existují v session_state) a export tlačítka (pokud existují výsledky)
     if hasattr(st.session_state, "results_json") and st.session_state.results_json:
+        ui.render_results(st.session_state.results_json)
         ui.render_export_buttons(st.session_state.results_json, st.session_state.query)
 
 

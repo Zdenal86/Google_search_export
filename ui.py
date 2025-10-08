@@ -57,6 +57,19 @@ class SearchUI:
 
             return language
 
+    def render_results_count(self):
+        """Vykreslení nastavení počtu výsledků"""
+        with st.expander("⚙️ Počet výsledků", expanded=False):
+            count = st.number_input(
+                "Zadejte počet výsledků:",
+                min_value=1,
+                max_value=10,
+                value=5,
+                help="Maximální počet výsledků, které se mají vrátit."
+            )
+
+            return count
+
     def render_search_button(self):
         """Vykreslení tlačítka pro vyhledání"""
         return st.button("Vyhledat", type="primary", use_container_width=True)

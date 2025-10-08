@@ -36,7 +36,7 @@ class SearchService:
         self.cx = os.getenv("GOOGLE_CX")
         self.service = build("customsearch", "v1", developerKey=self.api_key)
 
-    def google_search(self, query, num=10, language="cs"):
+    def google_search(self, query, num, language="cs"):
         """
         Provede vyhledávání pomocí Google Custom Search API
 
@@ -60,7 +60,6 @@ class SearchService:
                 num=num,
                 lr=f"lang_{language}",  # Language restrict - omezí výsledky na daný jazyk
                 gl=country,  # Geolocation - automaticky podle jazyka
-                hl=language,  # Host language - jazyk rozhraní
             )
             .execute()
         )
