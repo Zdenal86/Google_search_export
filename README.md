@@ -17,10 +17,12 @@ Jednoduchá webová aplikace pro vyhledávání pomocí Google Custom Search API
 
 - 🌐 Vyhledávání přes Google Custom Search API
 - 🌍 Inteligentní lokalizace (automatické určení země podle jazyka)
-- 📥 Export výsledků do JSON, CSV, TXT
+- � **Konfigurovatelný počet výsledků** (1-10 výsledků na dotaz)
+- ⚡ **Smart caching** - výsledky cachovány 1 hodinu pro rychlejší načtení a úsporu API quota
+- �📥 Export výsledků do JSON, CSV, TXT
 - 🎨 Moderní UI postavené na Streamlit
 - ✅ 100% pokrytí testy pro business logiku (parser + service)
-- 🧪 36 unit testů s pytest (35 passing)
+- 🧪 36 unit testů s pytest (všechny passing)
 
 ## 📁 Struktura projektu
 
@@ -139,8 +141,20 @@ Aplikace se otevře v prohlížeči na `http://localhost:8501`
 
 1. Zadejte vyhledávací dotaz
 2. (Volitelně) Zvolte jazyk v "⚙️ Nastavení jazyka" - země se určí automaticky
-3. Klikněte na "Vyhledat"
-4. Exportujte výsledky pomocí tlačítek 📥 JSON, 📊 CSV, 📄 TXT
+3. (Volitelně) Nastavte počet výsledků v "⚙️ Počet výsledků" (1-10, výchozí 5)
+4. Klikněte na "Vyhledat"
+5. Exportujte výsledky pomocí tlačítek 📥 JSON, 📊 CSV, 📄 TXT
+
+### ⚡ Smart Cache
+
+Aplikace automaticky cachuje výsledky vyhledávání na **1 hodinu**:
+
+- ✅ **První vyhledání** "Python" → volá Google API (~200-500ms)
+- ⚡ **Opakované vyhledání** "Python" (do 1h) → z cache (~5-20ms)
+- 💰 **Šetří API quota** - free tier má pouze 100 dotazů/den
+- 🔄 Cache se automaticky vymaže po 1 hodině nebo restartu aplikace
+
+**Tip:** V terminálu uvidíš zprávu `🔴 API CALL` jen když se skutečně volá API (ne z cache)
 
 ### Podporované jazyky
 

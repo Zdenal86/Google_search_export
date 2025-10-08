@@ -34,8 +34,14 @@ def main():
     if ui.render_search_button():
         if query and query.strip():
             with ui.show_loading():
-                # Vyhledání s lokalizací
-                results_dict = search_service.google_search(query, results_count, language=language)
+                # Vyhledání s lokalizací (staticmethod s cache)
+                results_dict = SearchService.google_search(
+                    search_service.api_key,
+                    search_service.cx,
+                    query,
+                    results_count,
+                    language=language
+                )
 
                 # Uložení do session state
                 st.session_state.results_json = json.dumps(

@@ -2,9 +2,8 @@
 Vyhledávací služba
 """
 
-import json
 import os
-
+import streamlit as st
 from googleapiclient.discovery import build
 
 
@@ -34,13 +33,17 @@ class SearchService:
         """
         self.api_key = os.getenv("GOOGLE_API_KEY")
         self.cx = os.getenv("GOOGLE_CX")
-        self.service = build("customsearch", "v1", developerKey=self.api_key)
 
-    def google_search(self, query, num, language="cs"):
+    # Statická metoda kvůli cachování
+    @staticmethod
+    @st.cache_data(ttl=3600)
+    def google_search(api_key, cx, query, num, language="cs"):
         """
         Provede vyhledávání pomocí Google Custom Search API
 
         Args:
+            api_key: Google Custom Search API klíč
+            cx: Custom Search Engine ID
             query: Vyhledávací dotaz
             num: Počet výsledků (max 10)
             language: Jazyk výsledků (cs, en, sk, pl, de, fr, es, it)
@@ -49,14 +52,19 @@ class SearchService:
         Returns:
             dict: Google API odpověď
         """
+         # Tato zpráva se vypíše JEN když se volá API (ne z cache)
+        print(f"🔴 API CALL: {query}, {num}, {language}")  # ← Do konzole
+        # Build service v rámci cachovatelné funkce
+        service = build("customsearch", "v1", developerKey=api_key)
+
         # Automaticky určí zemi podle zvoleného jazyka
-        country = self.LANGUAGE_COUNTRY_MAP.get(language, "US")
+        country = SearchService.LANGUAGE_COUNTRY_MAP.get(language, "US")
 
         res = (
-            self.service.cse()
+            service.cse()
             .list(
                 q=query,
-                cx=self.cx,
+                cx=cx,
                 num=num,
                 lr=f"lang_{language}",  # Language restrict - omezí výsledky na daný jazyk
                 gl=country,  # Geolocation - automaticky podle jazyka
