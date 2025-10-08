@@ -202,7 +202,13 @@ class TestSearchService:
         }
 
         for lang, expected_country in language_tests.items():
-            with patch("search_service.build") as mock_build:
+            # Vymaž cache před každým testem
+            import streamlit as st
+            if hasattr(st, 'cache_data'):
+                st.cache_data.clear()
+
+            with patch("search_service.build") as mock_build, \
+                 patch("search_service.st.cache_data", lambda ttl: lambda f: f):
                 mock_service = Mock()
                 mock_cse_instance = Mock()
                 mock_list_method = Mock()
@@ -213,12 +219,16 @@ class TestSearchService:
                 mock_service.cse.return_value = mock_cse_instance
                 mock_build.return_value = mock_service
 
-                SearchService.google_search(
+                # Volej přímo bez cache
+                from search_service import SearchService
+                # Získej uncached verzi funkce
+                result = SearchService.google_search.__wrapped__(
                     search_service.api_key, search_service.cx, "test", num=10, language=lang
                 )
 
                 # Ověř volání list() metody
                 call_args = mock_cse_instance.list.call_args
+                assert call_args is not None, f"Mock nebyl volán pro jazyk {lang}"
                 assert call_args[1]["lr"] == f"lang_{lang}"
                 assert call_args[1]["gl"] == expected_country  # Ověř automatické určení země
 
