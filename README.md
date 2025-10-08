@@ -1,99 +1,8 @@
 # 🔍 Vyhledávací aplikace
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://search-export.streamlit.app/)
-[![Tests](https://github.com/Zdenal86/Google_search_export/actions/workflows/tests.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/tests.## 🐛 Troubleshooting & Error Handling
-
-### Chybějící API credentials
-
-**Problém:**
-
-```
-AttributeError: 'NoneType' object has no attribute 'cse'
-```
-
-**Řešení:** API klíče nejsou nastavené. Zkontroluj:
-
-```powershell
-# Streamlit Cloud: Settings → Secrets
-# Lokálně: .streamlit/secrets.toml nebo environment proměnné
-```
-
-### Google API Error Responses
-
-**429 Too Many Requests**
-
-```json
-{
-  "error": {
-    "code": 429,
-    "message": "Quota exceeded for quota metric 'Queries' and limit 'Queries per day'"
-  }
-}
-```
-
-**Řešení:** Překročen denní limit (100 queries/den zdarma). Počkej 24h nebo upgraduj na placenou verzi.
-
-**403 Forbidden**
-
-```json
-{
-  "error": {
-    "code": 403,
-    "message": "The request is missing a valid API key."
-  }
-}
-```
-
-**Řešení:** Neplatný nebo chybějící API klíč. Zkontroluj `GOOGLE_API_KEY` v secrets.
-
-**400 Bad Request - Invalid CX**
-
-```json
-{
-  "error": {
-    "code": 400,
-    "message": "Invalid Value"
-  }
-}
-```
-
-**Řešení:** Neplatný CX (Search Engine ID). Ověř `GOOGLE_CX` v [Programmable Search Engine](https://programmablesearchengine.google.com/).
-
-### Deployment problémy
-
-**Streamlit Cloud: App crashes on startup**
-
-1. **Zkontroluj logs:** Dashboard → Manage app → Logs
-2. **Ověř secrets formát:**
-   ```toml
-   GOOGLE_API_KEY = "hodnota"  # S uvozovkami!
-   GOOGLE_CX = "hodnota"
-   ```
-3. **Zkontroluj requirements.txt:** Všechny dependencies přítomné?
-
-**Streamlit Cloud: Slow performance**
-
-Free tier má omezené resources:
-
-- Cache API responses: `@st.cache_data(ttl=3600)`
-- Limit počet výsledků: `num=5` místo `num=10`
-
-### Import Error: No module named 'googleapiclient'
-
-```powershell
-pip install google-api-python-client
-```
-
-### Pytest nenalezen
-
-```powershell
-pip install pytest pytest-cov
-```
-
-### Coverage pod 85%
-
-Pokud přidáváš kód do `search_service.py` nebo `results_parser.py`, přidej testy!
-UI moduly (`main.py`, `ui.py`) jsou vyloučeny z coverage (`.coveragerc`).k CI](https://github.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml)
+[![Tests](https://github.com/Zdenal86/Google_search_export/actions/workflows/tests.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/tests.yml)
+[![Quick CI](https://github.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml)
 [![Code Quality](https://github.com/Zdenal86/Google_search_export/actions/workflows/code-quality.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/code-quality.yml)
 [![codecov](https://codecov.io/gh/Zdenal86/Google_search_export/branch/main/graph/badge.svg)](https://codecov.io/gh/Zdenal86/Google_search_export)
 [![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)](https://www.python.org/downloads/)
@@ -423,7 +332,82 @@ Aplikace je připravená pro nasazení na Streamlit Community Cloud. Postupujte 
 3. Nastavte secrets v Advanced settings
 4. Deploy! 🎉
 
-## �🐛 Troubleshooting
+## 🐛 Troubleshooting & Error Handling
+
+### Chybějící API credentials
+
+**Problém:**
+
+```
+AttributeError: 'NoneType' object has no attribute 'cse'
+```
+
+**Řešení:** API klíče nejsou nastavené. Zkontroluj:
+
+```powershell
+# Streamlit Cloud: Settings → Secrets
+# Lokálně: .streamlit/secrets.toml nebo environment proměnné
+```
+
+### Google API Error Responses
+
+**429 Too Many Requests**
+
+```json
+{
+  "error": {
+    "code": 429,
+    "message": "Quota exceeded for quota metric 'Queries' and limit 'Queries per day'"
+  }
+}
+```
+
+**Řešení:** Překročen denní limit (100 queries/den zdarma). Počkej 24h nebo upgraduj na placenou verzi.
+
+**403 Forbidden**
+
+```json
+{
+  "error": {
+    "code": 403,
+    "message": "The request is missing a valid API key."
+  }
+}
+```
+
+**Řešení:** Neplatný nebo chybějící API klíč. Zkontroluj `GOOGLE_API_KEY` v secrets.
+
+**400 Bad Request - Invalid CX**
+
+```json
+{
+  "error": {
+    "code": 400,
+    "message": "Invalid Value"
+  }
+}
+```
+
+**Řešení:** Neplatný CX (Search Engine ID). Ověř `GOOGLE_CX` v [Programmable Search Engine](https://programmablesearchengine.google.com/).
+
+### Deployment problémy
+
+**Streamlit Cloud: App crashes on startup**
+
+1. **Zkontroluj logs:** Dashboard → Manage app → Logs
+2. **Ověř secrets formát:**
+   ```toml
+   GOOGLE_API_KEY = "hodnota"  # S uvozovkami!
+   GOOGLE_CX = "hodnota"
+   ```
+3. **Zkontroluj requirements.txt:** Všechny dependencies přítomné?
+
+**Streamlit Cloud: Slow performance**
+
+Free tier má omezené resources:
+
+- Cache API responses: `@st.cache_data(ttl=3600)`
+- Limit počet výsledků: `num=5` místo `num=10`
 
 ### Import Error: No module named 'googleapiclient'
 
@@ -442,6 +426,11 @@ pip install pytest pytest-cov
 ```powershell
 pip install streamlit --upgrade
 ```
+
+### Coverage pod 85%
+
+Pokud přidáváš kód do `search_service.py` nebo `results_parser.py`, přidej testy!
+UI moduly (`main.py`, `ui.py`) jsou vyloučeny z coverage (`.coveragerc`).
 
 ### API klíč nefunguje
 

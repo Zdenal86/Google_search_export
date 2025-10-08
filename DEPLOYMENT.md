@@ -158,82 +158,90 @@ Streamlit Cloud teď:1. Přejděte na [Google Cloud Console](https://console.clo
 
 1. Přejděte na [Programmable Search Engine](https://programmablesearchengine.google.com/)
 
-## 🎉 Hotovo!2. Vytvořte nový vyhledávač nebo upravte existující
-
-3. Zkopírujte **Search engine ID** (cx)
+## 🎉 Hotovo!
 
 Tvoje aplikace je živá! Měla by běžet na:
 
-````## 🔄 Update aplikace
-
+```
 https://your-app-name.streamlit.app
+```
 
-```Po změnách v kódu:
-
-
-
----1. Pushněte změny do GitHub repozitáře
-
-2. Streamlit Cloud automaticky detekuje změny a redeployuje aplikaci
+---
 
 ## 🔧 Aktualizace aplikace
 
-## 📊 Monitoring
-
 ### Automatické aktualizace
 
-Kdykoli pushneš změny do `main` branch na GitHubu, **Streamlit Cloud automaticky redeployuje** aplikaci!- **Logs**: Dostupné v Streamlit Cloud dashboardu
-
-- **Usage**: Sledujte využití API na [Google Cloud Console](https://console.cloud.google.com/)
+Kdykoli pushneš změny do `main` branch na GitHubu, **Streamlit Cloud automaticky redeployuje** aplikaci!
 
 ```bash
-
-git add .## 🆘 Troubleshooting
-
+git add .
 git commit -m "feat: Nová funkce"
+git push
+```
 
-git push### Aplikace nefunguje po nasazení
-
-````
-
-- Zkontrolujte, že secrets jsou správně nastaveny
-
-Po pár sekundách bude nová verze živá! 🚀- Ověřte logy v Streamlit Cloud dashboardu
-
-- Zkontrolujte, že API klíč má povolený Custom Search API
+Po pár sekundách bude nová verze živá! 🚀
 
 ### Ruční redeployment
 
-V dashboard Streamlit Cloud můžeš kliknout na **"Reboot app"** nebo **"Manage app"** → **"Reboot"**.### API quota exceeded
+V dashboard Streamlit Cloud můžeš kliknout na **"Reboot app"** nebo **"Manage app"** → **"Reboot"**.
 
----- Google Custom Search má limit 100 dotazů/den v free tier
+---
 
+## 📊 Monitoring
+
+- **Logs**: Dostupné v Streamlit Cloud dashboardu
+- **Usage**: Sledujte využití API na [Google Cloud Console](https://console.cloud.google.com/)
+
+---
+
+## 🆘 Troubleshooting
+
+### Aplikace nefunguje po nasazení
+
+- Zkontrolujte, že secrets jsou správně nastaveny
+- Ověřte logy v Streamlit Cloud dashboardu
+- Zkontrolujte, že API klíč má povolený Custom Search API
+
+### API quota exceeded
+
+- Google Custom Search má limit 100 dotazů/den v free tier
 - Zvažte upgrade plánu nebo optimalizaci dotazů
+
+---
 
 ## 🐛 Řešení problémů
 
-### Secrets se nenačítají
-
 ### Problém: Aplikace spadne s chybou "GOOGLE_API_KEY not found"
 
-**Řešení:** Zkontroluj, že jsi správně nastavil secrets v Streamlit Cloud:- Zkontrolujte formát TOML (název = "hodnota")
+**Řešení:** Zkontroluj, že jsi správně nastavil secrets v Streamlit Cloud:
 
-1. Jdi do dashboard → tvoje app → **"Settings"** → **"Secrets"**- Ujistěte se, že názvy odpovídají těm v kódu
+1. Jdi do dashboard → tvoje app → **"Settings"** → **"Secrets"**
+2. Zkontroluj formát (TOML):
 
-2. Zkontroluj formát (TOML):- Redeployujte aplikaci po změně secrets
-
-   ````toml
-
-   GOOGLE_API_KEY = "value"## 📝 Další zdroje
-
+   ```toml
+   GOOGLE_API_KEY = "value"
    GOOGLE_CX = "value"
+   ```
 
-   ```- [Streamlit Community Cloud Docs](https://docs.streamlit.io/streamlit-community-cloud)
-   ````
+3. Ujistěte se, že názvy odpovídají těm v kódu
+4. Redeployujte aplikaci po změně secrets
 
+### Secrets se nenačítají
+
+- Zkontrolujte formát TOML (název = "hodnota")
+- Ujistěte se, že názvy odpovídají těm v kódu
+- Redeployujte aplikaci po změně secrets
+
+---
+
+## 📝 Další zdroje
+
+- [Streamlit Community Cloud Docs](https://docs.streamlit.io/streamlit-community-cloud)
 - [Streamlit Secrets Management](https://docs.streamlit.io/streamlit-community-cloud/get-started/deploy-an-app/connect-to-data-sources/secrets-management)
+- [Google Custom Search API](https://developers.google.com/custom-search/v1/introduction)
 
-### Problém: Dependency install error- [Google Custom Search API](https://developers.google.com/custom-search/v1/introduction)
+### Problém: Dependency install error
 
 **Řešení:** Zkontroluj `requirements.txt`:
 
