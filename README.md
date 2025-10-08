@@ -4,7 +4,6 @@
 [![Tests](https://github.com/Zdenal86/Google_search_export/actions/workflows/tests.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/tests.yml)
 [![Quick CI](https://github.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml)
 [![Code Quality](https://github.com/Zdenal86/Google_search_export/actions/workflows/code-quality.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/code-quality.yml)
-[![codecov](https://codecov.io/gh/Zdenal86/Google_search_export/branch/main/graph/badge.svg)](https://codecov.io/gh/Zdenal86/Google_search_export)
 [![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
