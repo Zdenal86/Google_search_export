@@ -2,7 +2,9 @@
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://search-export.streamlit.app/)
 [![Tests](https://github.com/Zdenal86/Google_search_export/actions/workflows/tests.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/tests.yml)
-[![Quick CI](https://github.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml)
+[![Quick CI](https://gi## 🚀 Nasazení na Streamlit Cloud
+
+Aplikace je připravená pro nasazení na Streamlit Community Cloud. Postupujte podle [DEPLOYMENT.md](docs/DEPLOYMENT.md) pro:b.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml)
 [![Code Quality](https://github.com/Zdenal86/Google_search_export/actions/workflows/code-quality.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/code-quality.yml)
 [![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -37,8 +39,17 @@ Jednoduchá webová aplikace pro vyhledávání pomocí Google Custom Search API
 ├── test_ui.py                 # Unit testy pro UI (12 testů, 30% coverage)
 ├── requirements.txt           # Všechny dependencies
 ├── requirements-minimal.txt   # Pouze hlavní dependencies
+├── docs/                      # 📚 Dokumentace
+│   ├── README.md             # Přehled dokumentace
+│   ├── QUICK_DEPLOY.md       # Quick Streamlit Cloud deploy
+│   ├── DOCKER_QUICKSTART.md  # Quick Docker start
+│   ├── DOCKER.md             # Kompletní Docker guide
+│   ├── DOCKER_MODES.md       # Dev vs Prod režimy
+│   └── DEPLOYMENT.md         # Streamlit Cloud deployment
 └── .gitignore                 # Git ignore pravidla
 ```
+
+> 📚 **Dokumentace:** Všechny návody najdete v [docs/](docs/) složce
 
 ## ⚡ Quick Start - Streamlit Cloud
 
@@ -74,11 +85,36 @@ GOOGLE_CX = "tvůj-cx-id"
 
 Hotovo za ~2 minuty! Aplikace bude na `https://tvoje-app.streamlit.app`
 
-> 📖 Detailní návod: [QUICK_DEPLOY.md](QUICK_DEPLOY.md)
+> 📖 Detailní návod: [QUICK_DEPLOY.md](docs/QUICK_DEPLOY.md)
 
 ---
 
-## 🚀 Lokální instalace
+## � Docker instalace (Doporučeno!)
+
+**Nejrychlejší způsob na jakémkoliv PC:**
+
+```bash
+# 1. Clone projektu
+git clone https://github.com/Zdenal86/Google_search_export.git
+cd Google_search_export
+
+# 2. Vytvoř .env s API klíči
+cp .env.example .env
+# Edituj .env a přidej své klíče
+
+# 3. Spusť Docker
+docker-compose up -d
+```
+
+✅ Funguje na Windows/Mac/Linux
+✅ Žádné Python závislosti
+✅ Izolované prostředí
+
+📖 **Detailní návod:** [DOCKER_QUICKSTART.md](docs/DOCKER_QUICKSTART.md) | [DOCKER.md](docs/DOCKER.md)
+
+---
+
+## 🚀 Klasická instalace (Python)
 
 ### 1. Klonování repozitáře
 
@@ -125,7 +161,7 @@ $env:GOOGLE_CX = "tvůj-cx"
 
 > 💡 **Tip:** Zkopíruj `.streamlit/secrets.toml.example` a uprav hodnoty
 >
-> 📚 Podrobný návod na získání credentials: [DEPLOYMENT.md](DEPLOYMENT.md)
+> 📚 Podrobný návod na získání credentials: [DEPLOYMENT.md](docs/DEPLOYMENT.md)
 
 ## 🎮 Použití
 

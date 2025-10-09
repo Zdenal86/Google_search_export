@@ -1,0 +1,18 @@
+services:
+  google-search-export:
+    build: .
+    container_name: google-search-export-prod
+    ports:
+      - "8501:8501"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - GOOGLE_CX=${GOOGLE_CX}
+    # BEZ volumes - kód je uvnitř image
+    # Standalone container, funguje i po smazání projektu
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

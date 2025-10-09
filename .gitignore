@@ -108,3 +108,8 @@ config_local.py
 # Documentation
 docs/_build/
 site/
+
+# Docker
+*.tar
+*.tar.gz
+docker-compose.override.yml
