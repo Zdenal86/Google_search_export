@@ -60,6 +60,27 @@ Přehled všech dokumentačních souborů projektu Google Search Export.
 
 ---
 
+## 🤝 Contributing & Community
+
+### [CONTRIBUTING.md](./CONTRIBUTING.md)
+
+**Guide jak přispívat do projektu**
+
+- 🔧 Setup development prostředí
+- 📝 Code style a standardy
+- ✅ Testing guidelines
+- 🔀 Pull Request proces
+
+### [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
+
+**Pravidla chování komunity**
+
+- 🤝 Očekávané chování
+- ❌ Nepřijatelné chování
+- 📧 Reporting guidelines
+
+---
+
 ## 📖 Struktura dokumentace
 
 ```
@@ -69,7 +90,9 @@ docs/
 ├── DOCKER_QUICKSTART.md      # ⚡ Rychlý Docker start
 ├── DOCKER.md                 # 🐳 Kompletní Docker guide
 ├── DOCKER_MODES.md           # 🔄 Dev vs Prod režimy
-└── DEPLOYMENT.md             # ☁️ Streamlit Cloud deploy
+├── DEPLOYMENT.md             # ☁️ Streamlit Cloud deploy
+├── CONTRIBUTING.md           # 🤝 Contributing guide
+└── CODE_OF_CONDUCT.md        # 📜 Community guidelines
 ```
 
 ---

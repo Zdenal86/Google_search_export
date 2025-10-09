@@ -43,7 +43,9 @@ Jednoduchá webová aplikace pro vyhledávání pomocí Google Custom Search API
 │   ├── DOCKER_QUICKSTART.md  # Quick Docker start
 │   ├── DOCKER.md             # Kompletní Docker guide
 │   ├── DOCKER_MODES.md       # Dev vs Prod režimy
-│   └── DEPLOYMENT.md         # Streamlit Cloud deployment
+│   ├── DEPLOYMENT.md         # Streamlit Cloud deployment
+│   ├── CONTRIBUTING.md       # Contributing guide
+│   └── CODE_OF_CONDUCT.md    # Community guidelines
 └── .gitignore                 # Git ignore pravidla
 ```
 
@@ -491,8 +493,8 @@ Zkontrolujte:
 
 Příspěvky jsou vítány! Před tím, než začneš:
 
-1. 📖 Přečti si [CONTRIBUTING.md](CONTRIBUTING.md) - guide jak přispívat
-2. 📜 Dodržuj [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) - pravidla chování
+1. 📖 Přečti si [CONTRIBUTING.md](docs/CONTRIBUTING.md) - guide jak přispívat
+2. 📜 Dodržuj [CODE_OF_CONDUCT.md](docs/CODE_OF_CONDUCT.md) - pravidla chování
 3. 🐛 Reportuj bugy nebo navrhuj features přes [GitHub Issues](https://github.com/Zdenal86/Google_search_export/issues)
 4. 🔀 Vytvoř Pull Request s popisem změn
 
