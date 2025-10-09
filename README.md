@@ -2,9 +2,7 @@
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://search-export.streamlit.app/)
 [![Tests](https://github.com/Zdenal86/Google_search_export/actions/workflows/tests.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/tests.yml)
-[![Quick CI](https://gi## 🚀 Nasazení na Streamlit Cloud
-
-Aplikace je připravená pro nasazení na Streamlit Community Cloud. Postupujte podle [DEPLOYMENT.md](docs/DEPLOYMENT.md) pro:b.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml)
+[![Quick CI](https://github.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/quick-ci.yml)
 [![Code Quality](https://github.com/Zdenal86/Google_search_export/actions/workflows/code-quality.yml/badge.svg)](https://github.com/Zdenal86/Google_search_export/actions/workflows/code-quality.yml)
 [![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
